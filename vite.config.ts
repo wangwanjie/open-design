@@ -3,11 +3,14 @@ import react from '@vitejs/plugin-react';
 
 const DAEMON_PORT = Number(process.env.OD_PORT) || 7456;
 const VITE_PORT = Number(process.env.VITE_PORT) || 5173;
+const VITE_HOST = process.env.VITE_HOST || '0.0.0.0';
 
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: VITE_HOST,
     port: VITE_PORT,
+    allowedHosts: true,
     proxy: {
       '/api': {
         target: `http://127.0.0.1:${DAEMON_PORT}`,
